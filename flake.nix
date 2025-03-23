@@ -24,7 +24,8 @@
               pandas numpy matplotlib seaborn scikit-learn openpyxl
               xlrd jupyterlab pytz
               beautifulsoup4
-
+              selenium
+              webdriver-manager
             ]))
           ];
         shellHook = ''
