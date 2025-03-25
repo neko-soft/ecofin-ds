@@ -26,6 +26,7 @@
               beautifulsoup4
               selenium
               webdriver-manager
+              yfinance
             ]))
           ];
         shellHook = ''
