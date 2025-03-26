@@ -10,29 +10,34 @@
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
-
-        # Importa los paquetes generados con pip2nix
-
-        pythonPackages = import (self + "/python-packages.nix") { inherit pkgs; };
-
-        # Crea el entorno de Python con los paquetes adicionales
-        pythonEnv = pkgs.python312.withPackages (ps: with ps; [
-          pandas numpy matplotlib seaborn scikit-learn openpyxl xlrd
-          jupyterlab pytz beautifulsoup4 selenium webdriver-manager
-          yfinance pip
-
-          # Incluye los paquetes generados con pip2nix
-        ] ++ (builtins.attrValues pythonPackages));
-
+        pkgs = import nixpkgs { inherit system;
+                                config.allowUnfree = true;
+                              };
+        packageOverrides = pkgs.callPackage ./python-packages.nix {};
+        python = pkgs.python3.override {inherit packageOverrides;};
       in {
         devShells.default = pkgs.mkShell {
-          buildInputs = [
-            pythonEnv
+          packages = [ (python.withPackages(p: [p.bcchapi]))];
+          buildInputs = with pkgs; [
+
+            # Instala python 3.12
+            python312
+
+            (python312.withPackages (ps: with ps; [
+              # Paquetes normales de Python
+              pandas numpy matplotlib seaborn scikit-learn openpyxl
+              xlrd jupyterlab pytz
+              beautifulsoup4
+              selenium
+              webdriver-manager
+              yfinance
+              pip
+              
+            ]))
           ];
-          shellHook = ''
-            echo "Entorno de Python activado."
-          '';
+        shellHook = ''
+          echo "Entorno de Python activado :D"
+        '';        
         };
       });
 
