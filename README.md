@@ -3,7 +3,7 @@
 En este repo se pretende desarrollar un data scrapper para datos económicos y financieros, enfocado en Chile.
 ## Datos obtenidos:
 
-- [ x ] IPSA
+- [x] IPSA
 
 ## Datos pendientes:
 - [ ] IPC
