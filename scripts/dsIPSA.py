@@ -61,7 +61,7 @@ if response.status_code == 200:
 
 
 
-    ipsaCompleto = pd.read_csv('equities/ipsaCompleto.csv')
+    ipsaCompleto = pd.read_csv('datos/ipsaCompleto.csv')
     ipsaCompleto['Fecha'] = pd.to_datetime(ipsaCompleto['Fecha'], format='%Y-%m-%d')
     # Verificar cómo quedaron las fechas
     print(ipsaCompleto)
@@ -101,7 +101,7 @@ if response.status_code == 200:
             ipsaCompleto = pd.concat([ipsaCompleto, new_row], ignore_index=True)
             print (f"Se ha agregado la fecha {row['Fecha']} con el siguiente precio: {row['Precio']}")
 
-    ipsaCompleto.to_csv("equities/ipsaCompleto.csv", index=False)
+    ipsaCompleto.to_csv("datos/ipsaCompleto.csv", index=False)
 
 
 

@@ -37,6 +37,7 @@
           ];
         shellHook = ''
           echo "Entorno de Python activado :D"
+          python3 scripts/dsIPSA.py
         '';        
         };
       });
